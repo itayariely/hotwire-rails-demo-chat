@@ -1,0 +1,47 @@
+<% if user  %>
+<%# user = User.find_by(participant_hash:uh) %>
+<%= image_tag "chat.png" %>
+<div id="<%= dom_id(user) %>" style="position: fixed;right: 10px;bottom: 10px;">
+  <span class="badge badge-default">
+    <%= turbo_stream_from user %>
+    <%= turbo_frame_tag user do %>
+    <%= user.unread_messages_count %>
+    <% end %>
+  </span>
+</div>
+<% end %>
+<style media="screen">
+html,body{
+  overflow:hidden !important;
+  background-color: #0e75bb
+}
+.badge{
+  -webkit-tap-highlight-color: transparent;
+  list-style: none;
+  box-sizing: border-box;
+  line-height: 1;
+  white-space: nowrap;
+  display: inline-block;
+  min-width: 10px;
+  vertical-align: middle;
+  background-image: none;
+  font-size: 11px!important;
+  height: 18px;
+  border-radius: 12px!important;
+  text-shadow: none!important;
+  text-align: center;
+  font-family: "Open Sans",sans-serif;
+  position: absolute;
+  top: -30px;
+  right: 11px;
+  font-weight: 300;
+  padding: 3px 6px;
+  background-color: #36c6d3;
+  color: #fff;
+}
+
+img{
+  position: absolute;
+  left: 1px;
+}
+</style>

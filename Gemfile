@@ -60,3 +60,4 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
+gem 'acts-as-taggable-on', '~> 7.0'

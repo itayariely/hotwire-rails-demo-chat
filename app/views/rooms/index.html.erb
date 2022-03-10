@@ -1,27 +1,89 @@
-<p id="notice"><%= notice %></p>
+<!-- https://www.bypeople.com/web-chat-widget/ -->
+<div class="container clearfix">
+  <div class="people-list" id="people-list">
+    <div class="search">
+      <input type="text" placeholder="search" />
+      <i class="fa fa-search"></i>
+    </div>
+    <ul class="list rooms_list" id="rooms_list">
+      <% @rooms = Room.all %>
+      <% if true || false %>
+      <%= turbo_stream_from "rooms" %>
+        <%= turbo_frame_tag "rooms" do %>
+          <%# render partial: 'rooms', collection: @rooms, locals: {prefix: nil} %>
+          <%= render "rooms" %>
+        <% end %>
+      <% end %>
 
-<h1>Rooms</h1>
+    </ul>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="chat asdasd" id="chat_div">
+<% if false %>
+  <% @room = Room.first %>
+<%= turbo_stream_from @room %>
+<%= turbo_frame_tag "room_and_massages" do %>
+    <%= turbo_frame_tag "room" do %>
+      <%= render @room %>
 
-  <tbody>
-    <% @rooms.each do |room| %>
-      <tr>
-        <td><%= room.name %></td>
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Edit', edit_room_path(room) %></td>
-        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+            <div class="chat-history" id="chat-history">
+              <ul>
+                <div id="messages">
+                <%= render @room.messages %>
+              </div>
+              </ul>
+            </div>
+
+            <%= turbo_frame_tag "new_message", src: new_room_message_path(@room), target: "_top" %>
+
+
+
+            <div class="chat-message clearfix">
+              <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+
+              <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+              <i class="fa fa-file-image-o"></i>
+
+              <button>Send</button>
+
+            </div> <!-- end chat-message -->
     <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Room', new_room_path %>
+<% end %>
+<% end %>
+<%= render template: "rooms/show" %>
+  </div> <!-- end chat -->
+
+</div> <!-- end container -->
+
+
+<script type="text/javascript">
+  function highlight_room(room_id){
+    let id = room_id.replace('room_','');
+    let non_active = document.getElementsByClassName('active_room');
+    non_active[0].classList.remove('active_room');
+    let active_room = document.getElementById('room_'+id);
+    active_room.classList.add('active_room');
+  }
+
+  var classname = document.getElementsByClassName("room_li");
+
+var myFunction = function() {
+  highlight_room(this.id)
+    // var attribute = this.getAttribute("data-myattribute");
+
+};
+
+for (var i = 0; i < classname.length; i++) {
+    classname[i].addEventListener('click', myFunction, false);
+}
+
+function checkRoom() {
+  let chat = document.getElementById("chat_div")
+  let room = chat.querySelectorAll('.room_li')[0];
+  let room_list = document.getElementById("rooms_list")
+  let room_li = room_list.querySelector("#"+room.id);
+  room_li.classList.add('active_room');
+}
+</script>

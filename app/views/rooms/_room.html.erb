@@ -1,4 +1,39 @@
-<p id="<%= dom_id room %>">
-  <strong>Name:</strong>
-  <%= room.name %>
-</p>
+
+<%# https://stackoverflow.com/questions/18614301/keep-overflow-div-scrolled-to-bottom-unless-user-scrolls-up/18614561 %>
+
+
+<script type="text/javascript">
+setTimeout(function(){
+  // alert()
+  checkRoom()
+}, 100);
+</script>
+<li class="clearfix room_li" style="color:#fff;" id="<%= dom_id(room) %>">
+
+  <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" /> -->
+  <%= image_tag "avatar", width: "55px" %>
+  <div class="about">
+    <div class="name">
+      <%= link_to 'show1', room, "data-turbo-frame": "room_and_massages" %>
+      <%= room.name %>
+    </div>
+    <div class="status">
+      <i class="fa fa-circle online"></i> online <%= room.messages.count %>
+      <%# turbo_stream_from room.messages %>
+          <%# turbo_frame_tag "messages" do %>
+          <%# render "room_messages_count", room:room %>
+        <%# end %>
+
+    </div>
+  </div>
+</li>
+<div class="chat-header clearfix" id="<%= dom_id room %>">
+  <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" /> -->
+  <%= image_tag "avatar", width: "55px" %>
+
+  <div class="chat-about">
+    <div class="chat-with"><%= room.name %></div>
+    <!-- <div class="chat-num-messages">already <%# room.messages.count %> messages</div> -->
+  </div>
+  <i class="fa fa-star"></i>
+</div> <!-- end chat-header -->

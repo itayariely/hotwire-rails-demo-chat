@@ -1,0 +1,24 @@
+<% @users.each do |user| %>
+  <div class="clearfix user_div" id="<%= dom_id(user) %>">
+
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+    <div class="about">
+      <div class="name">
+        <%= user.name %>
+      </div>
+      <div class="status">
+        <i class="fa fa-circle online"></i>  <%= user.messages.count %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+
+<% if false %>
+  <% @users.each do |user| %>
+    <%= turbo_frame_tag user do %>
+      <%= render 'users/user', user: user %>
+    <% end %>
+  <% end %>
+<% end %>

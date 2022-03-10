@@ -1,0 +1,5 @@
+<% @users = User.all %>
+<%= turbo_stream_from "users" %>
+<%= turbo_frame_tag "users" do %>
+  <%= render "users" %>
+<% end %>

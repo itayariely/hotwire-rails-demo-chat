@@ -1,3 +1,38 @@
-<p id="<%= dom_id message %>">
-  <%= message.created_at.to_s(:short) %>: <%= message.content %>
-</p>
+
+    <li class="clearfix" id="<%= dom_id message %>">
+      <% current_user = 1 %>
+      <div class="message-data <%= 'align-right' if message.participant_id != current_user %>">
+        <span class="message-data-time" ><%= message.created_at.strftime("%d-%m-%Y") %></span> &nbsp; &nbsp;
+        <span class="message-data-name" ><%= message.user.name if message.user.present? %></span> <i class="fa fa-circle me"></i>
+
+        <% start_and_tasks = false %>
+        <% if start_and_tasks %>
+          <% @room ||= message.room %>
+          <%= form_for @room, method: :put do |form| %>
+            <%= form.fields_for :messages, message do |p| %>
+              <%= p.text_field :id %>
+              <%= p.check_box :tag_list, { :multiple => true }, 'star', nil %>
+              <%= p.check_box :tag_list, { :multiple => true }, 'task', nil %>
+            <% end %>
+            <%= form.submit %>
+          <% end %>
+          <% arr = message.tag_list %>
+          <span class="<%= "glow" if arr.include? "star" %>">
+            ⭐
+          </span>
+          <span class="<%= "glow" if arr.include? "task" %>">
+            ✅
+          </span>
+          <!-- 🔲 -->
+        <% end %>
+
+      </div>
+      <% if message.participant_id == current_user %>
+        <% message_class = 'my-message' %>
+      <% else %>
+       <% message_class = 'other-message float-right' %>
+     <% end %>
+      <div class="message <%= message_class %>">
+        <%= message.content %>
+      </div>
+    </li>

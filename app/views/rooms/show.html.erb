@@ -1,18 +1,36 @@
-<p id="notice"><%= notice %></p>
-
-<%= turbo_stream_from @room %>
-
-<%= turbo_frame_tag "room" do %>
-  <%= render @room %>
-
-  <p>
-    <%= link_to 'Edit', edit_room_path(@room) %> |
-    <%= link_to 'Back', rooms_path, "data-turbo-frame": "_top" %>
-  </p>
+<% if params[:id].present? %>
+  <% @room = Room.find(params[:id]) %>
+<% else %>
+  <% @room = Room.first %>
 <% end %>
+<%#   system("notify-send -i face-wink 'YourDebugger!' '#{@room.id}'") if Rails.env != "production" %>
+<%= turbo_frame_tag "room_and_massages" do %>
+<%= turbo_stream_from @room %>
+    <%= turbo_frame_tag "room" do %>
+      <%= render @room %>
+<% if true && false %>
+      <p>
+        <%= link_to 'Edit', edit_room_path(@room) %> |
+        <%= link_to 'Back', rooms_path, "data-turbo-frame": "_top" %>
+      </p>
+<% end %>
+    <% end %>
 
-<div id="messages">
-  <%= render @room.messages %>
-</div>
+      <div class="chat-history" id="chat-history">
+        <ul>
+          <div id="messages">
+          <%= render @room.messages %>
+        </div>
+        </ul>
+      </div>
 
-<%= turbo_frame_tag "new_message", src: new_room_message_path(@room), target: "_top" %>
+    <%= turbo_frame_tag "new_message", src: new_room_message_path(@room), target: "_top" %>
+
+
+<% end %>
+<script type="text/javascript">
+  let active_room = document.getElementById('room_<%= @room.id %>');
+  active_room.classList.add('active_room');
+
+
+</script>

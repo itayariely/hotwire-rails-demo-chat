@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room_id: 1
+  participant_id: 1
+  participant_hash: MyString
+  company_hash: MyString
+  company_id: MyString
+
+two:
+  room_id: 1
+  participant_id: 1
+  participant_hash: MyString
+  company_hash: MyString
+  company_id: MyString

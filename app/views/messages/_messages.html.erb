@@ -1,0 +1,9 @@
+<% if @tag.nil? %>
+  <%= @messages.size %>
+<% else %>
+
+  <%= @tag %>
+  <% @messages.each do |message| %>
+    <% render message, message: message %><%= message.id %>
+  <% end %>
+<% end %>

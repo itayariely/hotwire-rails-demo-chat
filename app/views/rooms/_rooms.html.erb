@@ -1,0 +1,36 @@
+<% start_and_tasks = false %>
+<% if start_and_tasks %>
+  <%= link_to  "tags/star", "data-turbo-frame": "room_and_massages" do %>
+  <%# link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
+  <li class="clearfix room_li" style="color:#fff;" id="stars">
+
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+    <div class="about">
+      <div class="name">
+        Stars
+      </div>
+      <div class="status">
+        <i class="fa fa-circle online"></i>
+      </div>
+    </div>
+  </li>
+  <% end %>
+<% end %>
+
+<% @rooms.each do |room| %>
+<%= link_to  room, id:"link_#{dom_id(room)}", "data-turbo-frame": "room_and_massages" do %>
+  <li class="clearfix room_li" style="color:#fff;" id="<%= dom_id(room) %>">
+
+    <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" /> -->
+    <%= image_tag "avatar", width: "55px" %>
+    <div class="about">
+      <div class="name">
+        <%= room.name %>
+      </div>
+      <div class="status">
+        <i class="fa fa-circle online"></i> online <%= room.messages.count %>
+      </div>
+    </div>
+  </li>
+  <% end %>
+<% end %>

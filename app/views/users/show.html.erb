@@ -1,0 +1,20 @@
+<%= turbo_stream_from @user %>
+    <%= turbo_frame_tag "user" do %>
+      <%= render @user %>
+<% if true && false %>
+      <p>
+        <%= link_to 'Edit', edit_user_path(@user) %> |
+        <%= link_to 'Back', users_path, "data-turbo-frame": "_top" %>
+      </p>
+<% end %>
+    <% end %>
+
+<% if false %>
+      <div class="chat-history" id="chat-history">
+        <ul>
+          <div id="messages">
+          <%= render @user.messages %>
+        </div>
+        </ul>
+      </div>
+<% end %>

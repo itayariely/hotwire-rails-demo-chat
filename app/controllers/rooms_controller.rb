@@ -2,10 +2,14 @@ class RoomsController < ApplicationController
   before_action :set_room, only: %i[ show edit update destroy ]
 
   def index
+    response.headers.except! 'X-Frame-Options'
     @rooms = Room.all
   end
 
   def show
+    if params[:user_id].present?
+      @room.participants.find_by(participant_id:params[:user_id]).update_last_visit
+    end
   end
 
   def new
@@ -36,6 +40,6 @@ class RoomsController < ApplicationController
     end
 
     def room_params
-      params.require(:room).permit(:name)
+      params.require(:room).permit(:name, :message, messages_attributes: [:id,tag_list:[]])
     end
 end
