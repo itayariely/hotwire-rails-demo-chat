@@ -11,7 +11,7 @@ setTimeout(function(){
 <li class="clearfix room_li" style="color:#fff;" id="<%= dom_id(room) %>">
 
   <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" /> -->
-  <%= image_tag "avatar", width: "55px" %>
+  <%= image_tag "avatar.png", width: "55px" %>
   <div class="about">
     <div class="name">
       <%= link_to 'show1', room, "data-turbo-frame": "room_and_massages" %>
@@ -29,7 +29,7 @@ setTimeout(function(){
 </li>
 <div class="chat-header clearfix" id="<%= dom_id room %>">
   <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" /> -->
-  <%= image_tag "avatar", width: "55px" %>
+  <%= image_tag "avatar.png", width: "55px" %>
 
   <div class="chat-about">
     <div class="chat-with"><%= room.name %></div>
