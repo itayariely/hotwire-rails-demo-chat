@@ -61,3 +61,4 @@ group :test do
   gem 'webdrivers'
 end
 gem 'acts-as-taggable-on', '~> 7.0'
+gem 'mimemagic', '~> 0.3.10'
