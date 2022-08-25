@@ -1,0 +1,114 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Release date:</strong>
+  <%= @release.release_date %>
+</p>
+
+<p>
+  <strong>Release title:</strong>
+  <%= @release.release_title %>
+</p>
+
+<p>
+  <strong>Release description:</strong>
+  <%= @release.release_description %>
+</p>
+
+<p>
+  <strong>Str:</strong>
+  <%= link_to @release.str.filename, @release.str if @release.str.attached? %>
+  <% if @release.str.attached? %>
+    <% require "csv" %>
+  <%# byebug%>
+  <div class="tableWarpper">
+    <table class="paleBlueRows">
+    <thead>
+    <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Expected Result</th>
+    <th>Run Info</th>
+    <th>Results</th>
+    
+  <%#  header_arr = ["case_id",
+"title",
+"suite",
+"suite_id",
+"assignee",
+"time_spent_ms",
+"status",
+"finish_time",
+"steps",
+"steps_expected_result",
+"steps_status",
+"comment",
+"priority",
+"severity",
+"automation",
+"type",
+"tags",
+"step_comments",
+"case_parameter"]
+#%>
+    </tr>
+    </thead>
+    <tbody>
+    <% CSV.foreach((ActiveStorage::Blob.service.path_for(@release.str.key)), headers: true, col_sep: ",") do |row| %>
+    <tr>
+    <td><%= row["title"] %></td>
+    <td><%= row["steps"].gsub("1. ","") %></td>
+    <td><%= row["steps_expected_result"].gsub("1. ","") %></td>
+    <td>
+      Test by:<%= row["assignee"] %><br />
+      Test at:<%= row["finish_time"] %><br />
+    </td>
+    <td><%= row["status"] %></td>
+    </tr>
+    <% end %>
+    </tbody>
+    </table>
+    </div>
+  <% end %>
+</p>
+
+
+suite
+<%= link_to 'Edit', edit_release_path(@release) %> |
+<%= link_to 'Back', releases_path %>
+
+
+<style>
+div.tableWarpper{
+  padding: 15px;
+}
+table.paleBlueRows {
+  font-family: "Times New Roman", Times, serif;
+  border: 6px solid #0B6FA4;
+  width: 100%;
+  /* height: 200px; */
+  /* text-align: center; */
+  border-collapse: collapse;
+}
+table.paleBlueRows td, table.paleBlueRows th {
+  border: 0px solid #FFFFFF;
+}
+table.paleBlueRows tbody td {
+  font-size: 13px;
+}
+table.paleBlueRows tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.paleBlueRows thead {
+  background: #0B6FA4;
+}
+table.paleBlueRows thead th {
+  font-size: 17px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+}
+table.paleBlueRows tfoot td {
+  font-size: 14px;
+}
+</style>

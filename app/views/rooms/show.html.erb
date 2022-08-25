@@ -23,8 +23,7 @@
         </div>
         </ul>
       </div>
-
-    <%= turbo_frame_tag "new_message", src: new_room_message_path(@room), target: "_top" %>
+    <%= turbo_frame_tag "new_message", src: new_room_message_path(@room), target: "_top"  %>
 
 
 <% end %>
@@ -32,5 +31,8 @@
   let active_room = document.getElementById('room_<%= @room.id %>');
   active_room.classList.add('active_room');
 
+  //scroll to bottom
+  var objDiv = document.getElementById("chat-history");
+  objDiv.scrollTop = objDiv.scrollHeight;
 
 </script>

@@ -1,7 +1,8 @@
 
     <li class="clearfix" id="<%= dom_id message %>">
-      <% current_user = 1 %>
-      <div class="message-data <%= 'align-right' if message.participant_id != current_user %>">
+      <%# current_user = 1 %>
+      <%# byebug %>
+      <div class="message-data <%= 'align-right' if message.participant_id != current_user.id %>">
         <span class="message-data-time" ><%= message.created_at.strftime("%d-%m-%Y") %></span> &nbsp; &nbsp;
         <span class="message-data-name" ><%= message.user.name if message.user.present? %></span> <i class="fa fa-circle me"></i>
 
@@ -27,7 +28,7 @@
         <% end %>
 
       </div>
-      <% if message.participant_id == current_user %>
+      <% if message.participant_id == current_user.id %>
         <% message_class = 'my-message' %>
       <% else %>
        <% message_class = 'other-message float-right' %>

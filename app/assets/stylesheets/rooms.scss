@@ -18,7 +18,7 @@ body {
 
 .container {
   // margin: 0 auto;
-  width: 750px;
+  // width: 750px;
   background: #444753;
   border-radius: 5px;
   height: 600px;
@@ -83,11 +83,12 @@ body {
 .chat {
   // width: 529px;
   height: 600px;
-  width: 490px;
-  float:left;
+  // width: 490px;
+  // float:left;
   background: #F2F5F8;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  overflow: hidden;
 
   color: #434651;
 

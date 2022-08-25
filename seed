@@ -1,0 +1,6 @@
+Room.new(name:"").save
+["Itay","Ziv","Chen","Mordechay","Sapir","John","Or"].each do |u|
+  ur = User.create(participant_hash: u, company_hash: "QWE", company_id: "1", name: u)
+  Participant.create(room_id: 1, participant_id: ur.id, participant_hash: u, company_hash: "QWE", company_id: "1")
+  Participant.create(room_id: 2, participant_id: ur.id, participant_hash: u, company_hash: "QWE", company_id: "1")
+end

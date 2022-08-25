@@ -4,9 +4,35 @@
 
 <script type="text/javascript">
 setTimeout(function(){
-  // alert()
   checkRoom()
-}, 100);
+}, 200);
+
+setTimeout(function(){
+  var objDiv = document.getElementById("chat-history");
+  objDiv.scrollTop = objDiv.scrollHeight;
+}, 50);
+
+// (() => {
+//   // user_email = getCookie('email').replace('%40', '@')
+//   // // message_participant_id
+//   // var select = document.querySelector('.message_participant_id');
+//   // // console.log(select.length)
+//   // // select.value = user_email
+//   // ////////////////////////
+//   //       //   const changeSelected = (e) => {
+//   //       //   const $select = document.querySelector('#mySelect');
+//   //       //   $select.value = 'steve'
+//   //       // };
+
+//   //       // document.querySelector('.changeSelected').addEventListener('click', changeSelected);
+//   // ////////////////////////
+//   // console.log(user_email)
+// })();
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 </script>
 <li class="clearfix room_li" style="color:#fff;" id="<%= dom_id(room) %>">
 

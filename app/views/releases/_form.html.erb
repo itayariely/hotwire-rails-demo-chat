@@ -1,0 +1,37 @@
+<%= form_with(model: release) do |form| %>
+  <% if release.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(release.errors.count, "error") %> prohibited this release from being saved:</h2>
+
+      <ul>
+        <% release.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :release_date %>
+    <%= form.date_select :release_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :release_title %>
+    <%= form.text_field :release_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :release_description %>
+    <%= form.text_area :release_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :str %>
+    <%= form.file_field :str %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

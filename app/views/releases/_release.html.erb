@@ -1,0 +1,73 @@
+ <% if params["data-target"].present? %>
+    <% target = params["data-target"] %>
+ <% else %>
+    <% target = "suite" %>
+ <% end %>
+ <% targets_arr = ["suite", "title", "test"] %>
+ 
+ <% if @release.str.attached? %>
+ <%# byebug %>
+    <% require "csv" %>
+  <div class="tableWarpper">
+  <% unless target == "test" %>
+  <div><input type="search" id="search" onkeyup="getVal()" /></div>
+  <% end %>
+    <table class="paleBlueRows">
+    <thead>
+    <tr>
+    <% if target == "suite" %>
+        <th>Suite</th>
+    <% elsif target == "title" %>
+        <th>Title</th>
+    <% else %>
+        <th>Description</th>
+        <th>Expected Result</th>
+        <th>Run Info</th>
+        <th>Results</th>
+    <% end %>
+  
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    <% showing = [] %>
+     <% @release.to_csv.each do |row| %>
+        <% next if (params["data-suite_id"].present?) && (row["suite_id"] != params["data-suite_id"]) %>
+        <% next if (params["data-case_id"].present?) && (row["case_id"] != params["data-case_id"]) %>
+        <% next if target == "suite" && (showing.include? row["suite_id"]) %>
+        <% next if target == "title" && (showing.include? row["title_id"]) %>
+        <% showing << row["suite_id"] %>
+        <tr>
+            <% if target == "suite" %>
+                <td><%= link_to row["suite"],  "data-turbo-frame": "str", "data-target": "title", "data-suite_id": row["suite_id"]  %></td>
+            <% elsif target == "title" %>
+                <td><%= link_to row["title"],  "data-turbo-frame": "str", "data-target": "test", "data-case_id": row["case_id"]  %></td>
+            <% else %>
+                <td><%= row["steps"].gsub("1. ","") %></td>
+                <td><%= row["steps_expected_result"].gsub("1. ","") %></td>
+                <td>
+                    Test by:<%= row["assignee"] %><br />
+                    Test at:<%= row["finish_time"] %><br />
+                </td>
+                <td><%= row["status"] %></td>
+            <% end %>
+    </tr>
+    <% end %>
+    </tbody>
+    </table>
+    </div>
+  <% end %>
+  <script>
+
+function getVal() {
+  const val = document.querySelector('input').value;
+  var table = document.getElementById("tbody");
+    for (var i = 0, row; row = table.rows[i]; i++) {
+        if (row.textContent.includes(val)) {
+            row.style.display = 'block';
+        } else {
+            row.style.display = 'none';
+        }
+        console.log(i)
+    }
+}
+</script>
