@@ -1,6 +1,7 @@
 
 var user_email = "";
-
+// var baseUrl = "http://127.0.0.1:3001";
+var baseUrl = "https://almondchattest.herokuapp.com";
 (() => {
   user_email = getCookie('email').replace('%40', '@')
   console.log(user_email)
@@ -39,7 +40,7 @@ document.getElementById('menu-trigger').addEventListener('click', ()=>{
 
 
 function show_menu() { 
-  fetch('http://127.0.0.1:3001/menu').then(function (response) {
+  fetch(baseUrl+'/menu').then(function (response) {
 	// The API call was successful!
     // console.log(response);
 	return response.text();
@@ -53,7 +54,7 @@ function show_menu() {
   elemDiv.insertAdjacentHTML('beforeend', data)
   // var elemIFrame = document.createElement('iframe');
   // elemIFrame.style.cssText = 'width:120px;height:120px;border:none;';
-  // elemIFrame.setAttribute('src','http://127.0.0.1:3001/menu');
+  // elemIFrame.setAttribute('src',baseUrl+'/menu');
   // elemDiv.append(elemIFrame)
   document.body.appendChild(elemDiv);
 }).catch(function (err) {
@@ -64,7 +65,7 @@ function show_menu() {
   // elemDiv.style.cssText = 'position:fixed;right:16px;bottom:100px;width:120px;height:120px;z-index:100;background-color:#e6e6e6';
   // var elemIFrame = document.createElement('iframe');
   // elemIFrame.style.cssText = 'width:120px;height:120px;border:none;';
-  // elemIFrame.setAttribute('src','http://127.0.0.1:3001/menu');
+  // elemIFrame.setAttribute('src',baseUrl+'/menu');
   // elemDiv.append(elemIFrame)
   // document.body.appendChild(elemDiv);
 } 
@@ -74,7 +75,7 @@ function show_menu() {
 //   elemDiv.style.cssText = 'position:fixed;right:16px;bottom:100px;width:120px;height:120px;z-index:100;background-color:#e6e6e6';
 //   var elemIFrame = document.createElement('iframe');
 //   elemIFrame.style.cssText = 'width:120px;height:120px;border:none;';
-//   elemIFrame.setAttribute('src','http://127.0.0.1:3001/menu');
+//   elemIFrame.setAttribute('src',baseUrl+'/menu');
 //   elemDiv.append(elemIFrame)
 //   document.body.appendChild(elemDiv);
 // } 
@@ -87,7 +88,7 @@ function show_chat() {
   elemDiv.style.cssText = 'flex: 0 0 120px;';
   var elemIFrame = document.createElement('iframe');
   elemIFrame.style.cssText = 'width:900px;height:600px;border:none;';
-  elemIFrame.setAttribute('src', 'http://127.0.0.1:3001/rooms?email=' + user_email);
+  elemIFrame.setAttribute('src', baseUrl+'/rooms?email=' + user_email);
   elemDiv.append(elemIFrame)
   elemBack = document.getElementById('elemBack')
   elemBack.appendChild(elemDiv)
@@ -107,7 +108,7 @@ function show_todo() {
   elemDiv.setAttribute('id', 'frame-wrap');
   var elemIFrame = document.createElement('iframe');
   elemIFrame.style.cssText = 'width:900px;height:600px;border:none;';
-  elemIFrame.setAttribute('src', 'http://127.0.0.1:3001/tasks?email=' + user_email);
+  elemIFrame.setAttribute('src', baseUrl+'/tasks?email=' + user_email);
   elemDiv.append(elemIFrame)
   elemBack = document.getElementById('elemBack')
   elemBack.appendChild(elemDiv)
@@ -133,7 +134,7 @@ function show_note() {
   elemDiv.setAttribute('id', 'frame-wrap');
   var elemIFrame = document.createElement('iframe');
   elemIFrame.style.cssText = 'width:900px;height:600px;border:none;';
-  elemIFrame.setAttribute('src', 'http://127.0.0.1:3001/notes?email=' + user_email);
+  elemIFrame.setAttribute('src', baseUrl+'/notes?email=' + user_email);
   elemDiv.append(elemIFrame)
   elemBack = document.getElementById('elemBack')
   elemBack.appendChild(elemDiv)
